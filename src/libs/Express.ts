@@ -4,6 +4,8 @@ import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
 import methodOverride from 'method-override'
+import * as routers from '../app/routes'
+import { connectMongoDb } from './MongoDb'
 
 export class Express {
   public port: number
@@ -22,6 +24,8 @@ export class Express {
     app.use(cors())
     app.use(helmet())
     app.use(compression())
+    app.use(new routers.indexRouter().r)
+    connectMongoDb()
     this.app = app
   }
 }
